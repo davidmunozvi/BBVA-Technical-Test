@@ -1,14 +1,12 @@
 import { createApiWeatherRepository } from '@/modules/weatherReports/infrastructure/ApiWeatherRepository';
 import { createApiCitiesRepository } from '@/modules/cities/infrastructure/ApiCitiesRepository';
-import { httpClient } from '@/modules/shared/infrastructure/HttpClient';
+import CitiesSearch from '@/sections/CitiesSearch';
 import { useEffect, useState } from 'react';
-const client = httpClient;
-const weatherRepository = createApiWeatherRepository(client);
-const citiesRepository = createApiCitiesRepository(client);
+const weatherRepository = createApiWeatherRepository();
+const citiesRepository = createApiCitiesRepository();
 
 function App() {
-	const [weather, setWeather] = useState({});
-	const [cities, setCities] = useState([]);
+	const [weather, setWeather] = useState(null);
 	useEffect(() => {
 		weatherRepository
 			.getWeatherByCoordinates({
@@ -17,20 +15,12 @@ function App() {
 			})
 			.then(data => setWeather(data));
 	}, []);
-	useEffect(() => {
-		citiesRepository.getAll('Madrid').then(data => setCities(data));
-	}, []);
 
 	return (
 		<>
-			<div>{weather?.timezone} hor</div>
-			<div>
-				{cities.map(city => (
-					<div key={city.id}>
-						{city.name} {city.country}
-					</div>
-				))}
-			</div>
+			<header>Weather app</header>
+			<CitiesSearch repository={citiesRepository} />
+			<div>{weather?.daily.temperature_2m_max[0]} degrees</div>
 		</>
 	);
 }
