@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCitySelector } from './useCityselector';
+import { useCitySelector } from '@/sections/dashboard/useCityselector';
 import { isCityNameValid } from '@/modules/cities/domain/City';
 
 function CitiesSearch({ repository }) {

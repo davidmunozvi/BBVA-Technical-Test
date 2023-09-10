@@ -7,7 +7,7 @@ import {
 import { vi, describe, it } from 'vitest';
 import { expect } from 'chai';
 
-import CitiesSearch from '@/sections/CitiesSearch';
+import CitiesSearch from '@/sections/dashboard/CitiesSearch';
 import { CityMother } from '../modules/cities/domain/CityMother';
 
 const renderCitiesSearch = repository =>
