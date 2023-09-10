@@ -12,8 +12,9 @@ export function useCitySelector({ search, repository }) {
 			return;
 		}
 
-		const timeoutId = setTimeout(() => {
-			getAllCities(repository)(search).then(data => setCities(data || []));
+		const timeoutId = setTimeout(async () => {
+			const cities = await getAllCities(repository)(search);
+			setCities(cities || []);
 		}, 400);
 		return () => clearTimeout(timeoutId);
 	}, [search]);
