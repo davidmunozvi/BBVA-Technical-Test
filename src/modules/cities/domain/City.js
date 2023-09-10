@@ -9,8 +9,8 @@ export function isCityNameValid(name) {
 
 export function areCoordinatesValid(coordinates) {
 	return Boolean(
-		coordinates &&
-			coordinates.length === 2 &&
+		Array.isArray(coordinates) &&
+			coordinates?.length === 2 &&
 			coordinates.every(coordinate => typeof coordinate === 'number'),
 	);
 }
@@ -22,4 +22,13 @@ export function ensureCityIsValid(city) {
 	if (!areCoordinatesValid(city?.coordinates)) {
 		throw new Error('City coordinates are invalid');
 	}
+}
+
+export function transformCoordinatesFromUrlParam(param) {
+	const [latitude, longitude] = param.split(',');
+	return [Number(latitude), Number(longitude)];
+}
+
+export function transformCoordinatesToUrlParam(coordinates) {
+	return coordinates.join(',');
 }
