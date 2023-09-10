@@ -1,16 +1,24 @@
-export const createApiCitiesRepository = client => ({
-	getAll: async coordinates => {
-		const cities = await client.get(
-			'https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1&language=en&format=json',
+import { httpClient } from '@/modules/shared/infrastructure/HttpClient';
+
+export const createApiCitiesRepository = () => ({
+	getAll: async city => {
+		const cities = await httpClient.get(
+			'https://geocoding-api.open-meteo.com/v1/search',
 			{
-				name: 'Berlin',
+				name: city,
 				count: 10,
 				language: 'en',
 				format: 'json',
 			},
 		);
-		return cities.results;
+		return cities?.results && mapCities(cities.results);
 	},
 });
 
-const mapCities = cities => ({});
+const mapCities = cities =>
+	cities.map(city => ({
+		coordinates: [city.latitude, city.longitude],
+		name: city.name,
+		country: city.country,
+		id: city.id,
+	}));
