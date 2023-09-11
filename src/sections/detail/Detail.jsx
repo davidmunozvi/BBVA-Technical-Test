@@ -56,7 +56,7 @@ function Loaded({ weather, cityName, country }) {
 }
 
 function Loading() {
-	return <div>Loading...</div>;
+	return <div>loading...</div>;
 }
 
 function Error() {

@@ -18,11 +18,16 @@ export function useWeatherWidget({ repository, city }) {
 			setStatus(WEATHER_WIDGET_STATUS.error);
 			return;
 		}
-		getWeatherByParamCoordinates(repository)(city.coordinates).then(data => {
-			setWeather(data);
-			setStatus(WEATHER_WIDGET_STATUS.loaded);
-		});
+		getWeather();
 	}, []);
+
+	const getWeather = async () => {
+		const weather = await getWeatherByParamCoordinates(repository)(
+			city.coordinates,
+		);
+		setWeather(weather);
+		setStatus(WEATHER_WIDGET_STATUS.loaded);
+	};
 
 	return { weather, status };
 }

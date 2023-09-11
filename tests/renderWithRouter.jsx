@@ -1,10 +1,16 @@
 import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
-export const renderWithRouter = (ui, { route = '/' } = {}) => {
-	window.history.pushState({}, 'Test page', route);
+export const renderWithRouter = (ui, { route = '/', path = '/' } = {}) => {
+	// window.history.pushState({}, 'Test page', route);
 
 	return {
-		...render(ui, { wrapper: BrowserRouter }),
+		...render(
+			<MemoryRouter initialEntries={[route]}>
+				<Routes>
+					<Route path={path} element={ui} />
+				</Routes>
+			</MemoryRouter>,
+		),
 	};
 };
