@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import {
+	transformCoordinatesToUrlParam,
+	isCityNameValid,
+} from '@/modules/cities/domain/City';
 import { useCitySelector } from '@/sections/dashboard/useCityselector';
-import { isCityNameValid } from '@/modules/cities/domain/City';
 
 function CitiesSearch({ repository }) {
 	const [value, setValue] = useState('');
@@ -15,11 +20,19 @@ function CitiesSearch({ repository }) {
 	};
 
 	const renderOptions = cities =>
-		Boolean(cities?.length) ? (
+		cities?.length ? (
 			<ul>
 				{cities.map(city => (
 					<li onClick={() => handleSetSelectedCity(city)} key={city.id}>
-						{city.name} {city.country}
+						<Link
+							to={`detail/${city.name}/${
+								city.country
+							}?coordinates=${transformCoordinatesToUrlParam(
+								city.coordinates,
+							)}`}
+						>
+							{city.name} {city.country}
+						</Link>
 					</li>
 				))}
 			</ul>

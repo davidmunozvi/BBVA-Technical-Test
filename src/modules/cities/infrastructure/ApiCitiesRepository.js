@@ -1,7 +1,7 @@
 import { httpClient } from '@/modules/shared/infrastructure/HttpClient';
 
 export const createApiCitiesRepository = () => ({
-	getAll: async city => {
+	getAll: async function (city) {
 		const cities = await httpClient.get(
 			'https://geocoding-api.open-meteo.com/v1/search',
 			{
