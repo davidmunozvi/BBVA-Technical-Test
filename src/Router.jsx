@@ -13,7 +13,7 @@ const router = createBrowserRouter([
 				element: <DashboardFactory />,
 			},
 			{
-				path: '/detail/:city/:country',
+				path: '/detail/:name/:country',
 				element: <DetailFactory />,
 			},
 		],
