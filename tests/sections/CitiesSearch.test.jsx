@@ -4,14 +4,14 @@ import {
 	fireEvent,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { vi, describe, it } from 'vitest';
-import { expect } from 'chai';
+import { renderWithRouter } from '../renderWithRouter';
+import { vi, describe, it, expect } from 'vitest';
 
 import CitiesSearch from '@/sections/dashboard/CitiesSearch';
 import { CityMother } from '../modules/cities/domain/CityMother';
 
 const renderCitiesSearch = repository =>
-	render(<CitiesSearch repository={repository} />);
+	renderWithRouter(<CitiesSearch repository={repository} />);
 
 describe('CitiesSearch component', () => {
 	it('should not request the cities on first render', () => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import WeatherStatusIcon from '@/sections/shared/WeatherIcon';
+import WeatherStatusIcon from '@/sections/shared/WeatherStatusIcon';
 import { useParams } from 'react-router-dom';
 import useQuery from '@/hooks/useQuery';
 import { getWeatherByParamCoordinates } from '@/modules/weatherReports/application/get';
