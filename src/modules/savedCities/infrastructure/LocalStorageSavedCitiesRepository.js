@@ -1,5 +1,7 @@
-import { addSavedCity } from '@/modules/savedCities/domain/SavedCity';
-import { removeSavedCity } from '../domain/savedCity';
+import {
+	addSavedCity,
+	removeSavedCity,
+} from '@/modules/savedCities/domain/SavedCity';
 
 const localStorageKey = 'savedCities';
 
