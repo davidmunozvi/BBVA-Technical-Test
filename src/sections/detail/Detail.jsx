@@ -6,9 +6,9 @@ import {
 	useWeatherWidget,
 	WEATHER_WIDGET_STATUS,
 } from '@/sections/detail/useWeatherWidget';
-import { transformCoordinatesFromUrlParam } from '../../modules/cities/domain/City';
-import { useSavedCitiesContext } from '../SavedCitiesContextProvider';
-import { isSavedCity } from '@/modules/savedCities/domain/savedCity';
+import { transformCoordinatesFromUrlParam } from '@/modules/cities/domain/City';
+import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
+import { isSavedCity } from '@/modules/savedCities/domain/SavedCity';
 
 function Detail({ weatherRepository }) {
 	const query = useQuery();

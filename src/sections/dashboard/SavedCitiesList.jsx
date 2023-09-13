@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSavedCitiesContext } from '../SavedCitiesContextProvider';
+import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
 import { getDetailPath } from '@/router/paths';
 import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
 
