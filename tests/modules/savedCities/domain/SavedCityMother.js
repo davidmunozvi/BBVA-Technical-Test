@@ -1,14 +1,15 @@
 import { Factory } from 'fishery';
 
 import { CityMother } from '../../cities/domain/CityMother';
+import { getSavedCityId } from '@/modules/savedCities/domain/savedCity';
 
 const SavedCityFactory = Factory.define(() => {
-	const { coordinates, name, country } = CityMother.create();
+	const city = CityMother.create();
 	return {
-		name,
-		coordinates,
-		country,
-		id: coordinates.join(','),
+		name: city.name,
+		coordinates: city.coordinates,
+		country: city.country,
+		id: getSavedCityId(city),
 	};
 });
 

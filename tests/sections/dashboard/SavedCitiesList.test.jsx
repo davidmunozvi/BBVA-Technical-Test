@@ -1,7 +1,6 @@
 import {
 	fireEvent,
 	screen,
-	waitFor,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
@@ -14,7 +13,8 @@ import { SavedCityMother } from '../../modules/savedCities/domain/SavedCityMothe
 const renderSavedCitiesList = repository =>
 	renderWithRouterAndSavedCitiesContext(<SavedCitiesList />, { repository });
 const savedCitiesRepository = createLocalStorageSavedCitiesRepository();
-describe('Detail section', () => {
+
+describe('SavedCities List component', () => {
 	it('should render the list of saved cities if have saved cities in local storage', async () => {
 		const length = 10;
 		const savedCitiesData = SavedCityMother.createList(length);

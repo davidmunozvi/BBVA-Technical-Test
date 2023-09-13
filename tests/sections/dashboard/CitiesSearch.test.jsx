@@ -50,7 +50,6 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-
 		const searchInput = screen.getByLabelText('Search city', {
 			selector: 'input',
 		});
