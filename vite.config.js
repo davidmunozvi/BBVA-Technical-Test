@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -10,7 +11,33 @@ export default defineConfig({
 			'@': resolve(__dirname, './src'),
 		},
 	},
-	plugins: [react()],
+	plugins: [
+		react(),
+		VitePWA({
+			manifest: {
+				name: 'Weather app for BBVA',
+				background_color: '#ffffff',
+				categories: ['weather', 'forecast'],
+				description: 'Weather app',
+				dir: 'ltr',
+				display: 'standalone',
+				display_override: ['standalone', 'fullscreen'],
+				icons: [
+					{
+						src: '/favicon.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+					{
+						src: '/splash.png',
+						sizes: '1439x1439',
+						type: 'image/png',
+					},
+				],
+			},
+			registerType: 'autoUpdate',
+		}),
+	],
 	test: {
 		globals: true,
 		environment: 'jsdom',
