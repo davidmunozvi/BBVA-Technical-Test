@@ -1,12 +1,14 @@
-import { IconList } from '@/sections/shared/Icons';
 import { Outlet, Link } from 'react-router-dom';
+
+import { IconList } from '@/sections/shared/Icons';
+import { PATHS } from '@/router/paths';
 
 function Layout() {
 	return (
 		<>
 			<header>
 				{
-					<Link to='/'>
+					<Link to={PATHS.dashboard}>
 						<IconList />
 					</Link>
 				}

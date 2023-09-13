@@ -8,8 +8,8 @@ const WeatherReportFactory = Factory.define(() => ({
 	minTemperature: faker.number.float({ max: 100, precision: 0.1 }),
 	is_day: faker.datatype.boolean(),
 	weather: faker.helpers.arrayElement(Object.values(WEATHER_WIDGET_STATUS)),
-	sunrise: faker.helpers.regexpStyleStringParse('[1-24]test[00-59]'),
-	sunset: faker.helpers.regexpStyleStringParse('[1-24]test[00-59]'),
+	sunrise: faker.helpers.regexpStyleStringParse('[1-24]:[00-59]'),
+	sunset: faker.helpers.regexpStyleStringParse('[1-24]:[00-59]'),
 }));
 
 export const WeatherReportMother = {

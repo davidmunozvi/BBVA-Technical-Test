@@ -6,14 +6,11 @@ import {
 	isCityNameValid,
 } from '@/modules/cities/domain/City';
 import { useCitySelector } from '@/sections/dashboard/useCityselector';
+import { getDetailPath } from '@/router/paths';
 
 function CitiesSearch({ repository }) {
 	const [value, setValue] = useState('');
-	const { cities, selectCity } = useCitySelector({ search: value, repository });
-
-	const handleSetSelectedCity = city => {
-		selectCity(city);
-	};
+	const { cities } = useCitySelector({ search: value, repository });
 
 	const renderError = () => {
 		return value && !isCityNameValid(value) && <span>Error</span>;
@@ -23,13 +20,13 @@ function CitiesSearch({ repository }) {
 		cities?.length ? (
 			<ul>
 				{cities.map(city => (
-					<li onClick={() => handleSetSelectedCity(city)} key={city.id}>
+					<li key={city.id}>
 						<Link
-							to={`detail/${city.name}/${
-								city.country
-							}?coordinates=${transformCoordinatesToUrlParam(
-								city.coordinates,
-							)}`}
+							to={getDetailPath({
+								name: city.name,
+								country: city.country,
+								coordinates: transformCoordinatesToUrlParam(city.coordinates),
+							})}
 						>
 							{city.name} {city.country}
 						</Link>

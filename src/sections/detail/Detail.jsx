@@ -7,20 +7,25 @@ import {
 	WEATHER_WIDGET_STATUS,
 } from '@/sections/detail/useWeatherWidget';
 import { transformCoordinatesFromUrlParam } from '../../modules/cities/domain/City';
+import { useSavedCitiesContext } from '../SavedCitiesContextProvider';
+import { isSavedCity } from '@/modules/savedCities/domain/savedCity';
 
 function Detail({ weatherRepository }) {
 	const query = useQuery();
 	const { name, country } = useParams();
 	const coordinates = query.get('coordinates');
+	const city = {
+		name,
+		country,
+		coordinates: transformCoordinatesFromUrlParam(coordinates),
+	};
 
 	const { weather, status } = useWeatherWidget({
 		repository: weatherRepository,
-		city: {
-			name,
-			country,
-			coordinates: transformCoordinatesFromUrlParam(coordinates),
-		},
+		city,
 	});
+	const { savedCities, addSavedCity, deleteSavedCity } =
+		useSavedCitiesContext();
 
 	const renderDeatailState = () => {
 		const states = {
@@ -33,7 +38,17 @@ function Detail({ weatherRepository }) {
 		return states[status];
 	};
 
-	return renderDeatailState();
+	return (
+		<div>
+			{isSavedCity(savedCities, city) ? (
+				<button onClick={() => deleteSavedCity(city)}>delete city</button>
+			) : (
+				<button onClick={() => addSavedCity(city)}>add city</button>
+			)}
+
+			{renderDeatailState()}
+		</div>
+	);
 }
 
 function Loaded({ weather, cityName, country }) {

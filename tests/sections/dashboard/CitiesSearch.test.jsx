@@ -3,11 +3,11 @@ import {
 	fireEvent,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { renderWithRouter } from '../../renderWithRouter';
 import { vi, describe, it, expect } from 'vitest';
 
 import CitiesSearch from '@/sections/dashboard/CitiesSearch';
 import { CityMother } from '../../modules/cities/domain/CityMother';
+import { renderWithRouter } from '../../helpers';
 
 const renderCitiesSearch = repository =>
 	renderWithRouter(<CitiesSearch repository={repository} />);
@@ -50,7 +50,6 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-
 		const searchInput = screen.getByLabelText('Search city', {
 			selector: 'input',
 		});
