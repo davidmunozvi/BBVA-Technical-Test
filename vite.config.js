@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
 	server: { port: 8080 },
+	base: '/BBVA-Technical-Test/',
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, './src'),
