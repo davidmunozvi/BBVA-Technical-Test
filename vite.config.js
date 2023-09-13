@@ -24,12 +24,12 @@ export default defineConfig({
 				display_override: ['standalone', 'fullscreen'],
 				icons: [
 					{
-						src: '/favicon.png',
+						src: '/BBVA-Technical-Test/favicon.png',
 						sizes: '192x192',
 						type: 'image/png',
 					},
 					{
-						src: '/splash.png',
+						src: '/BBVA-Technical-Test/splash.png',
 						sizes: '1439x1439',
 						type: 'image/png',
 					},
