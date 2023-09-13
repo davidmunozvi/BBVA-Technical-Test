@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardFactory from '@/sections/dashboard/DashboardFactory';
 import DetailFactory from '@/sections/detail/DetailFactory';
 import Layout from '@/sections/layout/Layout';
+import { PATHS } from '@/router/paths';
 
 const router = createBrowserRouter([
 	{
@@ -9,11 +10,11 @@ const router = createBrowserRouter([
 		element: <Layout />,
 		children: [
 			{
-				path: '/',
+				path: PATHS.dashboard,
 				element: <DashboardFactory />,
 			},
 			{
-				path: '/detail/:name/:country',
+				path: PATHS.detail,
 				element: <DetailFactory />,
 			},
 		],

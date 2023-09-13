@@ -1,44 +1,51 @@
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
-import { renderWithRouter } from '../../renderWithRouter';
+import {
+	screen,
+	render,
+	waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 
 import Detail from '@/sections/detail/Detail';
 import { WeatherReportMother } from '../../modules/weatherReports/domain/WeatherReportMother';
 import { CityMother } from '../../modules/cities/domain/CityMother';
+import { getDetailPath } from '@/router/paths';
+import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
+import { renderWithRouterAndSavedCitiesContext } from '../../helpers';
 
 const renderDetail = (repository, route) =>
-	renderWithRouter(<Detail weatherRepository={repository} />, {
-		route,
-		path: '/detail/:name/:country',
-	});
+	renderWithRouterAndSavedCitiesContext(
+		<Detail weatherRepository={repository} />,
+		{
+			route,
+			path: '/detail/:name/:country',
+		},
+	);
+const { country, coordinates, name } = CityMother.create();
 
 describe('Detail section', () => {
 	it('should request the weather info when the correct city data is given', async () => {
-		const cityName = 'Madrid';
-		const country = 'Spain';
-		const coordinates = CityMother.create().coordinates;
-
 		const weatherReport = WeatherReportMother.create();
 		const repository = {
 			get: () => weatherReport,
 		};
-
 		renderDetail(
 			repository,
-			`/detail/${cityName}/${country}?coordinates=${coordinates.join(',')}`,
+			getDetailPath({
+				name,
+				country,
+				coordinates: transformCoordinatesToUrlParam(coordinates),
+			}),
 		);
 		await waitForElementToBeRemoved(() => screen.getByText('loading...'));
 		const screenWeather = screen.getByText(weatherReport.weather);
-		const screenCityName = screen.getByText(`${cityName}, ${country}`);
+		const screenCityName = screen.getByText(`${name}, ${country}`);
 
 		expect(screenWeather).toBeInTheDocument();
 		expect(screenCityName).toBeInTheDocument();
 	});
 
 	it('should show error message when incorrect city data is given', async () => {
-		const cityName = 2;
-		const country = 'Spain';
-		const coordinates = CityMother.create().coordinates;
+		const incorrectCityName = 2;
 		const weatherReport = WeatherReportMother.create();
 		const repository = {
 			get: () => weatherReport,
@@ -46,7 +53,9 @@ describe('Detail section', () => {
 
 		renderDetail(
 			repository,
-			`/detail/${cityName}/${country}?coordinates=${coordinates.join(',')}`,
+			`/detail/${incorrectCityName}/${country}?coordinates=${coordinates.join(
+				',',
+			)}`,
 		);
 		const error = screen.getByText('Error');
 
@@ -54,13 +63,12 @@ describe('Detail section', () => {
 	});
 
 	it('should not try to fetch when incorrect city data is given', async () => {
-		const cityName = 2;
-		const country = 'Spain';
+		const country = 2;
 		const repository = {
 			get: vi.fn(),
 		};
 
-		renderDetail(repository, `/detail/${cityName}/${country}?coordinates=#`);
+		renderDetail(repository, `/detail/${name}/${country}?coordinates=#`);
 
 		expect(repository.get).not.toHaveBeenCalled();
 	});

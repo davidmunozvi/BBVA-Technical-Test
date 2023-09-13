@@ -42,6 +42,6 @@ const tranformWeatherCode = weatherCode => {
 
 	return (
 		WEATHER_EQUIVALENCES.find(({ codes }) => codes.includes(weatherCode))
-			.status || WEATHER_CONDITIONS.unknown
+			?.status || WEATHER_CONDITIONS.unknown
 	);
 };
