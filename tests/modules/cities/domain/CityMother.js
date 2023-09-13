@@ -5,7 +5,6 @@ const CityFactory = Factory.define(() => ({
 	name: faker.location.city(),
 	coordinates: [faker.location.latitude(), faker.location.longitude()],
 	country: faker.location.country(),
-	id: faker.database.mongodbObjectId(),
 }));
 
 export const CityMother = {

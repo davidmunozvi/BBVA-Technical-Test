@@ -10,7 +10,7 @@ function SavedCitiesList() {
 	return (
 		<section>
 			<header>
-				<h2>Ciudades guardadas</h2>{' '}
+				<h2>Ciudades guardadas</h2>
 				<button
 					disabled={!savedCities?.length}
 					onClick={() => deleteAllSavedCities()}
@@ -18,6 +18,7 @@ function SavedCitiesList() {
 					Delete all
 				</button>
 			</header>
+			{!savedCities?.length && <span>No hay ciudades guardadas</span>}
 			<ul>
 				{savedCities.map(city => (
 					<li key={city.id}>
