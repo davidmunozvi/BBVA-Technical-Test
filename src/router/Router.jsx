@@ -1,10 +1,10 @@
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardFactory from '@/sections/dashboard/DashboardFactory';
 import DetailFactory from '@/sections/detail/DetailFactory';
 import Layout from '@/sections/layout/Layout';
 import { PATHS } from '@/router/paths';
 
-const router = createHashRouter([
+const router = createBrowserRouter([
 	{
 		path: PATHS.base,
 		element: <Layout />,
