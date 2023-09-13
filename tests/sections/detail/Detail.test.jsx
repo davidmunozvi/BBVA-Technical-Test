@@ -14,6 +14,7 @@ import { getDetailPath } from '@/router/paths';
 import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
 import { renderWithRouterAndSavedCitiesContext } from '../../helpers';
 import { createLocalStorageSavedCitiesRepository } from '@/modules/savedCities/infrastructure/LocalStorageSavedCitiesRepository';
+import { PATHS } from '@/router/paths';
 
 const savedCitiesRepository = createLocalStorageSavedCitiesRepository();
 const defaultWeatherRepository = {
@@ -28,7 +29,7 @@ const renderDetail = ({
 		<Detail weatherRepository={repository} />,
 		{
 			route,
-			path: '/detail/:name/:country',
+			path: PATHS.detail,
 			repository: { ...savedCitiesRepository, ...saveCitiesOverride },
 		},
 	);
