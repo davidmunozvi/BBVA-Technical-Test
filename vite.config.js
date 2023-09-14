@@ -14,6 +14,11 @@ export default defineConfig({
 	plugins: [
 		react(),
 		VitePWA({
+			devOptions: {
+				enabled: true,
+				type: 'module',
+			},
+			strategies: 'injectManifest',
 			manifest: {
 				name: 'Weather app for BBVA',
 				background_color: '#ffffff',
