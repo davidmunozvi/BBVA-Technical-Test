@@ -15,6 +15,7 @@ import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
 import { renderWithRouterAndSavedCitiesContext } from '../../helpers';
 import { createLocalStorageSavedCitiesRepository } from '@/modules/savedCities/infrastructure/LocalStorageSavedCitiesRepository';
 import { PATHS } from '@/router/paths';
+import translations from '@/translations';
 
 const savedCitiesRepository = createLocalStorageSavedCitiesRepository();
 const defaultWeatherRepository = {
@@ -51,7 +52,9 @@ describe('Detail page', () => {
 					coordinates: transformCoordinatesToUrlParam(coordinates),
 				}),
 			});
-			await waitForElementToBeRemoved(() => screen.getByText('loading...'));
+			await waitForElementToBeRemoved(() =>
+				screen.getByText(translations.detail.loading),
+			);
 			const screenWeather = screen.getByText(weatherReport.weather);
 			const screenCityName = screen.getByText(`${name}, ${country}`);
 
@@ -69,7 +72,7 @@ describe('Detail page', () => {
 					coordinates: transformCoordinatesToUrlParam(coordinates),
 				}),
 			});
-			const error = screen.getByText('Error');
+			const error = screen.getByText(translations.detail.error);
 
 			expect(error).toBeInTheDocument();
 		});
@@ -106,8 +109,8 @@ describe('Detail page', () => {
 					get: () => Promise.resolve([]),
 				},
 			});
-			await waitFor(() => screen.getByText('add city'));
-			fireEvent.click(screen.getByText('add city'));
+			await waitFor(() => screen.getByText(translations.detail.add_button));
+			fireEvent.click(screen.getByText(translations.detail.add_button));
 
 			expect(addSpy).toHaveBeenCalled();
 		});
@@ -126,8 +129,8 @@ describe('Detail page', () => {
 					get: () => Promise.resolve([savedCity]),
 				},
 			});
-			await waitFor(() => screen.getByText('delete city'));
-			fireEvent.click(screen.getByText('delete city'));
+			await waitFor(() => screen.getByText(translations.detail.delete_button));
+			fireEvent.click(screen.getByText(translations.detail.delete_button));
 
 			expect(deleteSpy).toHaveBeenCalled();
 		});

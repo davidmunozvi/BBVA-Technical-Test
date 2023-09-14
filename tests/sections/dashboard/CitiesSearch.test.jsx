@@ -8,6 +8,7 @@ import { vi, describe, it, expect } from 'vitest';
 import CitiesSearch from '@/sections/dashboard/CitiesSearch';
 import { CityMother } from '../../modules/cities/domain/CityMother';
 import { renderWithRouter } from '../../helpers';
+import translations from '@/translations';
 
 const renderCitiesSearch = repository =>
 	renderWithRouter(<CitiesSearch repository={repository} />);
@@ -30,12 +31,17 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-		const searchInput = await screen.getByPlaceholderText('Search for a city');
+		const searchInput = await screen.getByPlaceholderText(
+			translations.dashboard.input_search_placeholder,
+		);
 		searchInput.focus();
 		fireEvent.change(searchInput, { target: { value: citiesList[0].name } });
-		await waitForElementToBeRemoved(() => screen.getByText('No results'), {
-			timeout: 400,
-		});
+		await waitForElementToBeRemoved(
+			() => screen.getByText(translations.dashboard.no_search_results),
+			{
+				timeout: 400,
+			},
+		);
 		const suggestions = await screen.getAllByRole('listitem');
 
 		expect(suggestions.length).to.equal(citiesList.length);
@@ -49,11 +55,13 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-		const searchInput = screen.getByPlaceholderText('Search for a city');
+		const searchInput = screen.getByPlaceholderText(
+			translations.dashboard.input_search_placeholder,
+		);
 		searchInput.focus();
 		fireEvent.change(searchInput, { target: { value: '#' } }); //TODO: add faker
 		const errorMessage = await screen.findByText(
-			'Invalid characters in search value',
+			translations.dashboard.input_search_error,
 		);
 
 		expect(errorMessage).toBeInTheDocument();

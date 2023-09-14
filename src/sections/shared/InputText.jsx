@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledSearchInput = styled.input`
 	width: 100%;
 	max-width: 600px;
-	padding: 10px 16px;
+	padding: 16px;
 	border-radius: 6px;
 	border: none;
 	background-color: white;

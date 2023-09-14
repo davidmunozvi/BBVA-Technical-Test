@@ -12,10 +12,16 @@ const StyledHeader = styled.header`
 	align-items: center;
 	justify-content: center;
 	position: relative;
+	padding-top: 40px;
 `;
 
 const StyledContent = styled.div`
 	padding: 16px 40px;
+	max-width: 950px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
 `;
 
 const StyledBackLink = styled(Link)`
@@ -35,7 +41,7 @@ const StyledBackLink = styled(Link)`
 
 const Text = styled.h1`
 	font-weight: 500;
-	font-size: 32px;
+	font-size: 2rem;
 `;
 
 function Layout() {

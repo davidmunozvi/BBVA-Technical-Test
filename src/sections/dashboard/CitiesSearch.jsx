@@ -11,6 +11,7 @@ import InputText from '@/sections/shared/InputText';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import LinksList from '@/sections/shared/LinksList';
 import Notification from '@/sections/shared/Notification';
+import translations from '@/translations';
 
 const StyledSectionWrapper = styled.section`
 	display: flex;
@@ -55,11 +56,15 @@ function CitiesSearch({ repository }) {
 		if (!isCityNameValid(value))
 			return (
 				<Notification type='error'>
-					Invalid characters in search value
+					{translations.dashboard.input_search_error}
 				</Notification>
 			);
 		if (!cities.length)
-			return <Notification type='info'>No results</Notification>;
+			return (
+				<Notification type='info'>
+					{translations.dashboard.no_search_results}
+				</Notification>
+			);
 		return renderOptions(cities);
 	};
 
@@ -67,7 +72,7 @@ function CitiesSearch({ repository }) {
 		<StyledSectionWrapper ref={ref}>
 			<InputText
 				name='search'
-				placeholder='Search for a city'
+				placeholder={translations.dashboard.input_search_placeholder}
 				onChange={e => setValue(e.target.value)}
 				value={value}
 				onFocus={() => setIsFocused(true)}

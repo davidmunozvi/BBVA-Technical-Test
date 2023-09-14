@@ -9,6 +9,7 @@ import {
 import { transformCoordinatesFromUrlParam } from '@/modules/cities/domain/City';
 import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
 import { isSavedCity } from '@/modules/savedCities/domain/SavedCity';
+import translations from '@/translations';
 
 function Detail({ weatherRepository }) {
 	const query = useQuery();
@@ -41,9 +42,13 @@ function Detail({ weatherRepository }) {
 	return (
 		<div>
 			{isSavedCity(savedCities, city) ? (
-				<button onClick={() => deleteSavedCity(city)}>delete city</button>
+				<button onClick={() => deleteSavedCity(city)}>
+					{translations.detail.delete_button}
+				</button>
 			) : (
-				<button onClick={() => addSavedCity(city)}>add city</button>
+				<button onClick={() => addSavedCity(city)}>
+					{translations.detail.add_button}
+				</button>
 			)}
 
 			{renderDeatailState()}
@@ -61,8 +66,12 @@ function Loaded({ weather, cityName, country }) {
 				{weather.weather} <WeatherStatusIcon />
 			</div>
 			<div>{weather.temperature}</div>
-			<div>Amanece a las {weather.sunrise}</div>
-			<div>Anochece a las {weather.sunset}</div>
+			<div>
+				{translations.detail.sunrise} {weather.sunrise}
+			</div>
+			<div>
+				{translations.detail.sunset} {weather.sunset}
+			</div>
 			<div>
 				{weather.maxTemperature} - {weather.minTemperature}
 			</div>
