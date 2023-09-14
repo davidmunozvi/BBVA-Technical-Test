@@ -16,11 +16,10 @@ export default defineConfig({
 		VitePWA({
 			devOptions: {
 				enabled: true,
-				type: 'module',
 			},
 			strategies: 'injectManifest',
 			srcDir: 'src',
-			filename: 'sw.js',
+			filename: 'dev-sw.js',
 			manifest: {
 				name: 'Weather app for BBVA',
 				background_color: '#ffffff',
