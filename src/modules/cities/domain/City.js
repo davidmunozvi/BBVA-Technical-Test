@@ -1,18 +1,14 @@
-export const CITY_NAME_MIN_LENGTH = 2;
-export const CITY_COUNTRY_MIN_LENGTH = 2;
+const NUMBERS_AND_SPECIAL_CHARACTERS_REGEXP =
+	/[\d!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/g;
 
 export function isCityNameValid(name) {
-	const numbersRegExp = /[0-9]/g;
-	return Boolean(
-		name?.length >= CITY_NAME_MIN_LENGTH && !numbersRegExp.test(name),
-	);
+	const numbersRegExp = NUMBERS_AND_SPECIAL_CHARACTERS_REGEXP;
+	return Boolean(!numbersRegExp.test(name));
 }
 
 export function isCityCountryValid(country) {
-	const numbersRegExp = /[0-9]/g;
-	return Boolean(
-		country?.length >= CITY_COUNTRY_MIN_LENGTH && !numbersRegExp.test(name),
-	);
+	const numbersRegExp = NUMBERS_AND_SPECIAL_CHARACTERS_REGEXP;
+	return Boolean(!numbersRegExp.test(country));
 }
 
 export function areCoordinatesValid(coordinates) {

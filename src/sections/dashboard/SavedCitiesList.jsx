@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from '@/sections/shared/Link';
 import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
 import { getDetailPath } from '@/router/paths';
 import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
@@ -25,7 +25,7 @@ function SavedCitiesList() {
 						{city.name}, {city.country}
 						<button onClick={() => deleteSavedCity(city)}>delete</button>
 						<Link
-							to={getDetailPath({
+							href={getDetailPath({
 								name: city.name,
 								country: city.country,
 								coordinates: transformCoordinatesToUrlParam(city.coordinates),

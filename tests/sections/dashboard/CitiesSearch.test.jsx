@@ -30,11 +30,10 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-		const searchInput = screen.getByLabelText('Search city', {
-			selector: 'input',
-		});
+		const searchInput = await screen.getByPlaceholderText('Search for a city');
+		searchInput.focus();
 		fireEvent.change(searchInput, { target: { value: citiesList[0].name } });
-		await waitForElementToBeRemoved(() => screen.getByText('...loading'), {
+		await waitForElementToBeRemoved(() => screen.getByText('No results'), {
 			timeout: 400,
 		});
 		const suggestions = await screen.getAllByRole('listitem');
@@ -50,11 +49,12 @@ describe('CitiesSearch component', () => {
 		};
 
 		renderCitiesSearch(repository);
-		const searchInput = screen.getByLabelText('Search city', {
-			selector: 'input',
-		});
-		fireEvent.change(searchInput, { target: { value: 22 } });
-		const errorMessage = await screen.findByText('Error');
+		const searchInput = screen.getByPlaceholderText('Search for a city');
+		searchInput.focus();
+		fireEvent.change(searchInput, { target: { value: '#' } }); //TODO: add faker
+		const errorMessage = await screen.findByText(
+			'Invalid characters in search value',
+		);
 
 		expect(errorMessage).toBeInTheDocument();
 	});
