@@ -18,9 +18,7 @@ export const createApiCitiesRepository = () => ({
 const mapCities = cities =>
 	cities.map(city => ({
 		coordinates:
-			city?.latitude || city?.longitude
-				? [(city.latitude, city.longitude)]
-				: [],
+			city?.latitude || city?.longitude ? [city.latitude, city.longitude] : [],
 		name: city?.name || '',
 		country: city?.country || '',
 		id: city?.id || '',

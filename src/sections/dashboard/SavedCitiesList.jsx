@@ -68,9 +68,6 @@ function SavedCitiesList() {
 							{city.name}, {city.country}
 						</Text>
 						<SavedCityActions>
-							<Button onClick={() => deleteSavedCity(city)}>
-								{translations.dashboard.delete_saved_city}
-							</Button>
 							<Link
 								href={getDetailPath({
 									name: city.name,
@@ -80,6 +77,9 @@ function SavedCitiesList() {
 							>
 								{translations.dashboard.open_saved_city}
 							</Link>
+							<Button onClick={() => deleteSavedCity(city)}>
+								{translations.dashboard.delete_saved_city}
+							</Button>
 						</SavedCityActions>
 					</StyledCityCard>
 				))}

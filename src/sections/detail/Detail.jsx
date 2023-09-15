@@ -57,7 +57,7 @@ function Detail({ weatherRepository }) {
 	}
 
 	if (!weather && WEATHER_WIDGET_STATUS.loading === status) {
-		return <div>{translations.detail.loading}</div>; // TODO: Add loading skeleton
+		return <div>{translations.detail.loading}</div>;
 	}
 
 	return (

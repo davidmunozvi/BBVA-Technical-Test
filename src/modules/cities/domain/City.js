@@ -15,7 +15,9 @@ export function areCoordinatesValid(coordinates) {
 	return Boolean(
 		Array.isArray(coordinates) &&
 			coordinates?.length === 2 &&
-			coordinates.every(coordinate => typeof coordinate === 'number'),
+			coordinates.every(
+				coordinate => coordinate && typeof coordinate === 'number',
+			),
 	);
 }
 
