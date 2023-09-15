@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from '@/sections/shared/Link';
 import { getDetailPath } from '@/router/paths';
 import { transformCoordinatesToUrlParam } from '@/modules/cities/domain/City';
 

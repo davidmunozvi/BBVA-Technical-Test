@@ -11,14 +11,15 @@ export const createApiCitiesRepository = () => ({
 				format: 'json',
 			},
 		);
-		return cities?.results && mapCities(cities.results);
+		return Array.isArray(cities?.results) && mapCities(cities.results);
 	},
 });
 
 const mapCities = cities =>
 	cities.map(city => ({
-		coordinates: [city.latitude, city.longitude],
-		name: city.name,
-		country: city.country,
-		id: city.id,
+		coordinates:
+			city?.latitude || city?.longitude ? [city.latitude, city.longitude] : [],
+		name: city?.name || '',
+		country: city?.country || '',
+		id: city?.id || '',
 	}));

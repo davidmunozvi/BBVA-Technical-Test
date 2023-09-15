@@ -1,5 +1,3 @@
-const SAVED_CITIES_LIMIT = 100;
-
 export const createSavedCity = city => {
 	return {
 		name: city.name,

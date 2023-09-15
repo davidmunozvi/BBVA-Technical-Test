@@ -6,11 +6,10 @@ export function useCitySelector({ search, repository }) {
 	const [cities, setCities] = useState([]);
 
 	useEffect(() => {
-		if (!isCityNameValid(search)) {
+		if (!search || !isCityNameValid(search)) {
 			resetCities();
 			return;
 		}
-
 		const timeoutId = setTimeout(async () => {
 			const cities = await getAllCities(repository)(search);
 			setCities(cities || []);

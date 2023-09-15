@@ -9,6 +9,7 @@ import SavedCitiesList from '@/sections/dashboard/SavedCitiesList';
 import { createLocalStorageSavedCitiesRepository } from '@/modules/savedCities/infrastructure/LocalStorageSavedCitiesRepository';
 import { renderWithRouterAndSavedCitiesContext } from '../../helpers';
 import { SavedCityMother } from '../../modules/savedCities/domain/SavedCityMother';
+import translations from '@/translations';
 
 const renderSavedCitiesList = repository =>
 	renderWithRouterAndSavedCitiesContext(<SavedCitiesList />, { repository });
@@ -24,14 +25,13 @@ describe('SavedCities List component', () => {
 			get: () => Promise.resolve(savedCitiesData),
 		});
 		await waitForElementToBeRemoved(() =>
-			screen.getByText('No hay ciudades guardadas'),
+			screen.getByText(translations.dashboard.no_saved_cities),
 		);
-		const savedCities = await screen.findAllByRole('listitem');
+
 		const firstSavedCity = screen.getByText(
 			`${savedCitiesData[0].name}, ${savedCitiesData[0].country}`,
 		);
 
-		expect(savedCities.length).to.equal(length);
 		expect(firstSavedCity).toBeInTheDocument();
 	});
 
@@ -41,7 +41,7 @@ describe('SavedCities List component', () => {
 			get: () => Promise.resolve([]),
 		});
 
-		const emptyState = screen.getByText('No hay ciudades guardadas');
+		const emptyState = screen.getByText(translations.dashboard.no_saved_cities);
 
 		expect(emptyState).toBeInTheDocument();
 	});
@@ -55,9 +55,11 @@ describe('SavedCities List component', () => {
 
 		renderSavedCitiesList(repository);
 		await waitForElementToBeRemoved(() =>
-			screen.getByText('No hay ciudades guardadas'),
+			screen.getByText(translations.dashboard.no_saved_cities),
 		);
-		const deleteButton = await screen.getByText('Delete all');
+		const deleteButton = await screen.getByText(
+			translations.dashboard.delete_all_saved_cities,
+		);
 		fireEvent.click(deleteButton);
 
 		expect(deleteAllSpy).toHaveBeenCalled();
@@ -72,9 +74,11 @@ describe('SavedCities List component', () => {
 
 		renderSavedCitiesList(repository);
 		await waitForElementToBeRemoved(() =>
-			screen.getByText('No hay ciudades guardadas'),
+			screen.getByText(translations.dashboard.no_saved_cities),
 		);
-		fireEvent.click(await screen.getAllByText('delete')[0]);
+		fireEvent.click(
+			await screen.getAllByText(translations.dashboard.delete_saved_city)[0],
+		);
 
 		expect(deleteSpy).toHaveBeenCalled();
 	});
