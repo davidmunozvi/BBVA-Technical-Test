@@ -18,8 +18,9 @@ import { PATHS } from '@/router/paths';
 import translations from '@/translations';
 
 const savedCitiesRepository = createLocalStorageSavedCitiesRepository();
+const defaultWeatherReport = WeatherReportMother.create();
 const defaultWeatherRepository = {
-	get: () => WeatherReportMother.create(),
+	get: () => defaultWeatherReport,
 };
 const renderDetail = ({
 	repository = defaultWeatherRepository,
@@ -39,13 +40,7 @@ const { country, coordinates, name } = CityMother.create();
 describe('Detail page', () => {
 	describe('Weather section data functionality', () => {
 		it('should request the weather info when the correct city data is given', async () => {
-			const weatherReport = WeatherReportMother.create();
-			const repository = {
-				get: () => weatherReport,
-			};
-
 			renderDetail({
-				repository,
 				route: getDetailPath({
 					name,
 					country,
@@ -55,11 +50,9 @@ describe('Detail page', () => {
 			await waitForElementToBeRemoved(() =>
 				screen.getByText(translations.detail.loading),
 			);
-			const screenWeather = screen.getByText(weatherReport.weather);
-			const screenCityName = screen.getByText(`${name}, ${country}`);
+			const screenWeather = screen.getByText(defaultWeatherReport.weather);
 
 			expect(screenWeather).toBeInTheDocument();
-			expect(screenCityName).toBeInTheDocument();
 		});
 
 		it('should show error message when incorrect city name is given', async () => {
@@ -77,7 +70,46 @@ describe('Detail page', () => {
 			expect(error).toBeInTheDocument();
 		});
 
-		it('should not try to fetch when incorrect city data is given', async () => {
+		it('should render the weather daily list', async () => {
+			renderDetail({
+				route: getDetailPath({
+					name,
+					country,
+					coordinates,
+				}),
+			});
+
+			await waitForElementToBeRemoved(() =>
+				screen.getByText(translations.detail.loading),
+			);
+
+			const dailyItem = await screen.getByText(
+				defaultWeatherReport.daily[0].day,
+			);
+
+			expect(dailyItem).toBeInTheDocument();
+		});
+
+		it('should not render the weather daily list when api return empty array', async () => {
+			renderDetail({
+				repository: {
+					get: () => [],
+				},
+				route: getDetailPath({
+					name,
+					country,
+					coordinates,
+				}),
+			});
+
+			await waitForElementToBeRemoved(() =>
+				screen.getByText(translations.detail.loading),
+			);
+
+			screen.debug();
+		});
+
+		it('should render daily weather blocks', async () => {
 			const invalidCountry = 2;
 			const repository = {
 				get: vi.fn(),

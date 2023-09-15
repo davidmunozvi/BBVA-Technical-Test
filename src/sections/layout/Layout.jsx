@@ -1,32 +1,34 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import Link from '@/sections/shared/Link';
+import { useLocation, useParams } from 'react-router-dom';
 
+import Link from '@/sections/shared/Link';
+import Text from '@/sections/shared/Text';
 import { IconList } from '@/sections/shared/Icons';
 import { PATHS } from '@/router/paths';
+import translations from '@/translations';
 
 const StyledHeader = styled.header`
 	display: flex;
 	gap: 32px;
 	align-items: center;
 	justify-content: center;
-	position: relative;
 	padding-top: 40px;
 `;
 
 const StyledContent = styled.div`
-	padding: 16px 40px;
+	padding: 16px 30px;
 	max-width: 950px;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
+	position: relative;
 `;
 
 const StyledBackLink = styled(Link)`
 	position: absolute;
-	left: 40px;
+	left: 30px;
 	color: #a4a9ae;
 	font-size: 14px;
 	font-weight: 700;
@@ -39,13 +41,9 @@ const StyledBackLink = styled(Link)`
 	}
 `;
 
-const Text = styled.h1`
-	font-weight: 500;
-	font-size: 2rem;
-`;
-
 function Layout() {
 	const location = useLocation();
+	const { name, country } = useParams();
 	const isDetailPage = location.pathname !== PATHS.dashboard;
 
 	return (
@@ -56,7 +54,13 @@ function Layout() {
 						<IconList />
 					</StyledBackLink>
 				)}
-				<Text>Weather app</Text>
+				{isDetailPage ? (
+					<Text element='h1'>
+						{name}, {country}
+					</Text>
+				) : (
+					<Text element='h1'>{translations.global.header_text}</Text>
+				)}
 			</StyledHeader>
 			<StyledContent>
 				<Outlet />

@@ -1,10 +1,15 @@
 import { Link as ExternalLink } from 'react-router-dom';
+import { styled } from 'styled-components';
+
+const StyledLink = styled(ExternalLink)`
+	color: #a4a9ae;
+`;
 
 function Link({ children, href, ...rest }) {
 	return (
-		<ExternalLink to={href} {...rest}>
+		<StyledLink to={href} {...rest}>
 			{children}
-		</ExternalLink>
+		</StyledLink>
 	);
 }
 

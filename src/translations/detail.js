@@ -5,4 +5,6 @@ export default {
 	sunset: 'sunset at',
 	loading: 'loading...',
 	error: 'Error',
+	min: 'Min',
+	max: 'Max',
 };

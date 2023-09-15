@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Link from '@/sections/shared/Link';
+import Text from '@/sections/shared/Text';
 import Button from '@/sections/shared/Button';
 import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
 import { getDetailPath } from '@/router/paths';
@@ -12,6 +13,11 @@ const StyledHeader = styled.header`
 	justify-content: space-between;
 	align-items: center;
 	gap: 8px;
+	margin-bottom: 24px;
+`;
+
+const StyledContainer = styled.div`
+	width: 100%;
 `;
 
 const StyledCityCardsWrapper = styled.div`
@@ -27,7 +33,7 @@ const StyledCityCard = styled.div`
 	padding: 16px;
 	gap: 8px;
 	background-color: white;
-	border-radius: 8px;
+	border-radius: 4px;
 	box-shadow: rgba(54, 60, 75, 0.1) 0px 16px 32px;
 	> span {
 		font-size: 16px;
@@ -45,9 +51,9 @@ function SavedCitiesList() {
 		useSavedCitiesContext();
 
 	return (
-		<section>
+		<StyledContainer>
 			<StyledHeader>
-				<h2>Favoritos</h2>
+				<Text element='h2'>Favoritos</Text>
 				<Button disabled={!savedCities?.length} onClick={deleteAllSavedCities}>
 					{translations.dashboard.delete_all_saved_cities}
 				</Button>
@@ -58,9 +64,9 @@ function SavedCitiesList() {
 			<StyledCityCardsWrapper>
 				{savedCities.map(city => (
 					<StyledCityCard key={city.id}>
-						<span>
+						<Text weight='bold'>
 							{city.name}, {city.country}
-						</span>
+						</Text>
 						<SavedCityActions>
 							<Button onClick={() => deleteSavedCity(city)}>
 								{translations.dashboard.delete_saved_city}
@@ -78,7 +84,7 @@ function SavedCitiesList() {
 					</StyledCityCard>
 				))}
 			</StyledCityCardsWrapper>
-		</section>
+		</StyledContainer>
 	);
 }
 

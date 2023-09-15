@@ -1,7 +1,9 @@
-import dashboardTranslations from './dashboard';
-import detailTranslations from './detail';
+import dashboard from './dashboard';
+import detail from './detail';
+import global from './global';
 
 export default {
-	dashboard: dashboardTranslations,
-	detail: detailTranslations,
+	dashboard,
+	detail,
+	global,
 };

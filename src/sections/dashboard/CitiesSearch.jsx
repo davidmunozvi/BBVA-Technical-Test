@@ -13,10 +13,11 @@ import LinksList from '@/sections/shared/LinksList';
 import Notification from '@/sections/shared/Notification';
 import translations from '@/translations';
 
-const StyledSectionWrapper = styled.section`
+const StyledCitySearchConatiner = styled.section`
 	display: flex;
 	justify-content: center;
 	position: relative;
+	width: 100%;
 `;
 
 const StyledSuggestionsWrapper = styled.div`
@@ -69,7 +70,7 @@ function CitiesSearch({ repository }) {
 	};
 
 	return (
-		<StyledSectionWrapper ref={ref}>
+		<StyledCitySearchConatiner ref={ref}>
 			<InputText
 				name='search'
 				placeholder={translations.dashboard.input_search_placeholder}
@@ -82,7 +83,7 @@ function CitiesSearch({ repository }) {
 					{renderSuggestionsContent(cities)}
 				</StyledSuggestionsWrapper>
 			)}
-		</StyledSectionWrapper>
+		</StyledCitySearchConatiner>
 	);
 }
 

@@ -1,15 +1,31 @@
 import { useParams } from 'react-router-dom';
 import useQuery from '@/hooks/useQuery';
+import styled from 'styled-components';
 
-import WeatherStatusIcon from '@/sections/shared/WeatherStatusIcon';
 import {
 	useWeatherWidget,
 	WEATHER_WIDGET_STATUS,
 } from '@/sections/detail/useWeatherWidget';
 import { transformCoordinatesFromUrlParam } from '@/modules/cities/domain/City';
 import { useSavedCitiesContext } from '@/sections/SavedCitiesContextProvider';
-import { isSavedCity } from '@/modules/savedCities/domain/SavedCity';
+import { isSavedCity as validateIsSavedCity } from '@/modules/savedCities/domain/SavedCity';
 import translations from '@/translations';
+import CurrentDayWeather from '@/sections/detail/CurrentDayWeather';
+import DailyWeather from '@/sections/detail/DailyWeather';
+import Button from '@/sections/shared/Button';
+
+const StyledSaveCityAction = styled(Button)`
+	position: absolute;
+	right: 0;
+	top: 5%;
+`;
+
+const StyledContainer = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+`;
 
 function Detail({ weatherRepository }) {
 	const query = useQuery();
@@ -20,71 +36,39 @@ function Detail({ weatherRepository }) {
 		country,
 		coordinates: transformCoordinatesFromUrlParam(coordinates),
 	};
-
 	const { weather, status } = useWeatherWidget({
 		repository: weatherRepository,
 		city,
 	});
 	const { savedCities, addSavedCity, deleteSavedCity } =
 		useSavedCitiesContext();
+	const isSavedCity = validateIsSavedCity(savedCities, city);
 
-	const renderDeatailState = () => {
-		const states = {
-			[WEATHER_WIDGET_STATUS.loading]: <Loading />,
-			[WEATHER_WIDGET_STATUS.error]: <Error />,
-			[WEATHER_WIDGET_STATUS.loaded]: (
-				<Loaded weather={weather} cityName={name} country={country} />
-			),
-		};
-		return states[status];
+	const handleSaveCityAction = () => {
+		if (isSavedCity) {
+			deleteSavedCity(city);
+			return;
+		}
+		addSavedCity(city);
 	};
 
+	if (WEATHER_WIDGET_STATUS.error === status) {
+		return <div>{translations.detail.error}</div>;
+	}
+
+	if (!weather && WEATHER_WIDGET_STATUS.loading === status) {
+		return <div>{translations.detail.loading}</div>; // TODO: Add loading skeleton
+	}
+
 	return (
-		<div>
-			{isSavedCity(savedCities, city) ? (
-				<button onClick={() => deleteSavedCity(city)}>
-					{translations.detail.delete_button}
-				</button>
-			) : (
-				<button onClick={() => addSavedCity(city)}>
-					{translations.detail.add_button}
-				</button>
-			)}
-
-			{renderDeatailState()}
-		</div>
+		<StyledContainer>
+			<StyledSaveCityAction onClick={handleSaveCityAction}>
+				{translations.detail[isSavedCity ? 'delete_button' : 'add_button']}
+			</StyledSaveCityAction>
+			<CurrentDayWeather weather={weather} />
+			<DailyWeather weather={weather} />
+		</StyledContainer>
 	);
-}
-
-function Loaded({ weather, cityName, country }) {
-	return (
-		<div>
-			<div>
-				{cityName}, {country}
-			</div>
-			<div>
-				{weather.weather} <WeatherStatusIcon />
-			</div>
-			<div>{weather.temperature}</div>
-			<div>
-				{translations.detail.sunrise} {weather.sunrise}
-			</div>
-			<div>
-				{translations.detail.sunset} {weather.sunset}
-			</div>
-			<div>
-				{weather.maxTemperature} - {weather.minTemperature}
-			</div>
-		</div>
-	);
-}
-
-function Loading() {
-	return <div>loading...</div>;
-}
-
-function Error() {
-	return <div>Error</div>;
 }
 
 export default Detail;
