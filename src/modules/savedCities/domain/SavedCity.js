@@ -16,9 +16,7 @@ export const addSavedCity = (savedCities, newCity) => {
 };
 
 export const isSavedCity = (savedCities, city) => {
-	return savedCities.some(
-		savedCity => savedCity.id === createSavedCity(city).id,
-	);
+	return savedCities.some(savedCity => savedCity.id === getSavedCityId(city));
 };
 
 export const removeSavedCity = (savedCities, id) => {

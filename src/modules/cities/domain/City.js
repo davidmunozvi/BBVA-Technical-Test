@@ -29,18 +29,6 @@ export function isCityValid(city) {
 	);
 }
 
-export function ensureCityIsValid(city) {
-	if (!isCityNameValid(city?.name)) {
-		throw new Error('City name is invalid');
-	}
-	if (!areCoordinatesValid(city?.coordinates)) {
-		throw new Error('City coordinates are invalid');
-	}
-	if (!isCityCountryValid(city?.country)) {
-		throw new Error('City country is invalid');
-	}
-}
-
 export function transformCoordinatesFromUrlParam(param) {
 	const [latitude, longitude] = param.split(',');
 	return [Number(latitude), Number(longitude)];

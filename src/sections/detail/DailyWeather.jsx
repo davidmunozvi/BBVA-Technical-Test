@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 import WeatherStatusIcon from '@/sections/shared/WeatherStatusIcon';
+import Text from '@/sections/shared/Text';
+import translations from '@/translations';
 
 const StyledContainer = styled.section`
 	display: flex;
@@ -31,9 +33,15 @@ const StyledLabel = styled.span`
 `;
 
 function DailyWeather({ weather }) {
+	if (!weather) {
+		return null;
+	}
 	return (
 		<StyledContainer>
-			{weather?.daily?.map(day => (
+			<header>
+				<Text weight='bold'>{translations.detail.daily_title}</Text>
+			</header>
+			{weather.daily.map(day => (
 				<StyledDay key={day.day}>
 					<StyledLabel align='left'>{day.day}</StyledLabel>
 					<StyledWeatherIcon weather={day.weather} />

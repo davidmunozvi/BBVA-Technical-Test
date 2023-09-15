@@ -7,4 +7,5 @@ export default {
 	error: 'Error',
 	min: 'Min',
 	max: 'Max',
+	daily_title: '7-day forecast',
 };

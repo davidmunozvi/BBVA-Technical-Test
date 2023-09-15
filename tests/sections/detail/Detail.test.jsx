@@ -38,7 +38,7 @@ const renderDetail = ({
 const { country, coordinates, name } = CityMother.create();
 
 describe('Detail page', () => {
-	describe('Weather section data functionality', () => {
+	describe('Current weather section data functionality', () => {
 		it('should request the weather info when the correct city data is given', async () => {
 			renderDetail({
 				route: getDetailPath({
@@ -56,7 +56,7 @@ describe('Detail page', () => {
 		});
 
 		it('should show error message when incorrect city name is given', async () => {
-			const invalidCityName = 2;
+			const invalidCityName = CityMother.createWithInvalidCityName().name;
 
 			renderDetail({
 				route: getDetailPath({
@@ -70,7 +70,27 @@ describe('Detail page', () => {
 			expect(error).toBeInTheDocument();
 		});
 
-		it('should render the weather daily list', async () => {
+		it('should not call the api with invalid params', async () => {
+			const invalidCountry = CityMother.createWithInvalidCityCountry().country;
+			const repository = {
+				get: vi.fn(),
+			};
+
+			renderDetail({
+				repository,
+				route: getDetailPath({
+					name,
+					country: invalidCountry,
+					coordinates,
+				}),
+			});
+
+			expect(repository.get).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('Daily weather section functionality', () => {
+		it('should render the weather daily list when daily data is provided', async () => {
 			renderDetail({
 				route: getDetailPath({
 					name,
@@ -90,10 +110,10 @@ describe('Detail page', () => {
 			expect(dailyItem).toBeInTheDocument();
 		});
 
-		it('should not render the weather daily list when api return empty array', async () => {
+		it('should not render the weather daily list when daily data is not provided', async () => {
 			renderDetail({
 				repository: {
-					get: () => [],
+					get: () => WeatherReportMother.create({ daily: [] }),
 				},
 				route: getDetailPath({
 					name,
@@ -101,32 +121,15 @@ describe('Detail page', () => {
 					coordinates,
 				}),
 			});
-
 			await waitForElementToBeRemoved(() =>
 				screen.getByText(translations.detail.loading),
 			);
+			const title = screen.getByText(translations.detail.daily_title);
 
-			screen.debug();
-		});
-
-		it('should render daily weather blocks', async () => {
-			const invalidCountry = 2;
-			const repository = {
-				get: vi.fn(),
-			};
-
-			renderDetail({
-				repository,
-				route: getDetailPath({
-					name,
-					country: invalidCountry,
-					coordinates: '#',
-				}),
-			});
-
-			expect(repository.get).not.toHaveBeenCalled();
+			expect(title).toBeInTheDocument();
 		});
 	});
+
 	describe('Saved cities section functionality', () => {
 		it('should be able to add a city', async () => {
 			const addSpy = vi.spyOn(savedCitiesRepository, 'save');
