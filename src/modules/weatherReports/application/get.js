@@ -1,5 +1,5 @@
-export function getWeatherByParamCoordinates(weatherRepository) {
-	return function (coordinates) {
+export const getWeatherByParamCoordinates = weatherRepository => {
+	return coordinates => {
 		return weatherRepository.get(coordinates);
 	};
-}
+};

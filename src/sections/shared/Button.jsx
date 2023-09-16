@@ -11,6 +11,9 @@ const StyledButton = styled.button`
 	color: white;
 	border-radius: 4px;
 	cursor: pointer;
+	&:hover {
+		background-color: #3d2668;
+	}
 `;
 
 function Button({ onClick = () => {}, children, ...rest }) {

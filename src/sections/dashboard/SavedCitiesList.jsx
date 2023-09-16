@@ -16,7 +16,7 @@ const StyledHeader = styled.header`
 	margin-bottom: 24px;
 `;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.section`
 	width: 100%;
 `;
 
