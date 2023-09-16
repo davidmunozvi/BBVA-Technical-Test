@@ -59,7 +59,9 @@ describe('CitiesSearch component', () => {
 			translations.dashboard.input_search_placeholder,
 		);
 		searchInput.focus();
-		fireEvent.change(searchInput, { target: { value: '#' } }); //TODO: add faker
+		fireEvent.change(searchInput, {
+			target: { value: CityMother.createWithInvalidCityName().name },
+		});
 		const errorMessage = await screen.findByText(
 			translations.dashboard.input_search_error,
 		);

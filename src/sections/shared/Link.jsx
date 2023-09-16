@@ -2,7 +2,10 @@ import { Link as ExternalLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const StyledLink = styled(ExternalLink)`
-	color: #a4a9ae;
+	color: #1974cf;
+	&:hover {
+		color: #093d6b;
+	}
 `;
 
 function Link({ children, href, ...rest }) {

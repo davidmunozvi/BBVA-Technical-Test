@@ -1,5 +1,5 @@
-export function getAllCities(citiesRepository) {
+export const getAllCities = citiesRepository => {
 	return function (name) {
 		return citiesRepository.getAll(name);
 	};
-}
+};
