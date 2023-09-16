@@ -10,15 +10,13 @@ describe('The dashboard', () => {
 		cy.contains(dashboard.no_saved_cities).should('exist');
 	});
 	it('find a city and navigate to the detail with the correct option', () => {
-		const city = 'Madrid';
-
 		cy.visit('/');
 		cy.get(`input[placeholder="${dashboard.input_search_placeholder}"]`).type(
 			'Madrid',
 		);
 		cy.intercept('**/search**').as('citiesList');
 		cy.wait('@citiesList');
-		cy.contains(city).click();
+		cy.contains('Madrid Spain').click();
 		// cy.contains(city).should('exist');
 	});
 });
