@@ -58,7 +58,7 @@ const tranformWeatherCode = weatherCode => {
 		{ codes: [71, 73, 75, 77, 85, 86], status: WEATHER_CONDITIONS.snow },
 	];
 
-	if (!weatherCode) return WEATHER_CONDITIONS.unknown;
+	if (typeof weatherCode !== 'number') return WEATHER_CONDITIONS.unknown;
 
 	return (
 		WEATHER_EQUIVALENCES.find(({ codes }) => codes.includes(weatherCode))
