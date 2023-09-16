@@ -37,7 +37,7 @@ function DailyWeather({ weather }) {
 		return null;
 	}
 	return (
-		<StyledContainer>
+		<StyledContainer data-test='daily-weather'>
 			<header>
 				<Text weight='bold'>{translations.detail.daily_title}</Text>
 			</header>

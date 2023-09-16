@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 
 export default defineConfig({
-	server: { port: 8080 },
+	server: { port: 8080, host: true },
 	base: '/BBVA-Technical-Test/',
 	resolve: {
 		alias: {
@@ -48,5 +48,6 @@ export default defineConfig({
 		globals: true,
 		environment: 'jsdom',
 		setupFiles: ['./tests/setupTests.js'],
+		include: ['**/*.test.js'],
 	},
 });
