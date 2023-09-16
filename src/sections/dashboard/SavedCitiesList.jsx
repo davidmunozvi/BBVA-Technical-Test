@@ -54,9 +54,14 @@ function SavedCitiesList() {
 		<StyledContainer>
 			<StyledHeader>
 				<Text element='h2'>Favoritos</Text>
-				<Button disabled={!savedCities?.length} onClick={deleteAllSavedCities}>
-					{translations.dashboard.delete_all_saved_cities}
-				</Button>
+				{!!savedCities?.length && (
+					<Button
+						disabled={!savedCities?.length}
+						onClick={deleteAllSavedCities}
+					>
+						{translations.dashboard.delete_all_saved_cities}
+					</Button>
+				)}
 			</StyledHeader>
 			{!savedCities?.length && (
 				<span>{translations.dashboard.no_saved_cities}</span>
