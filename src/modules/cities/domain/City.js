@@ -1,5 +1,5 @@
 const NUMBERS_AND_SPECIAL_CHARACTERS_REGEXP =
-	/[\d!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/g;
+	/[\d!@#$%^&*()_+{}\[\]:;<>,.?~\\]/g;
 
 export const isCityNameValid = name => {
 	const numbersRegExp = NUMBERS_AND_SPECIAL_CHARACTERS_REGEXP;
