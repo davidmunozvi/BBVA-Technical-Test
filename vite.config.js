@@ -48,6 +48,6 @@ export default defineConfig({
 		globals: true,
 		environment: 'jsdom',
 		setupFiles: ['./tests/setupTests.js'],
-		include: ['**/*.test.js'],
+		include: ['**/*.test.?(c|m)[jt]s?(x)'],
 	},
 });
