@@ -2,14 +2,20 @@
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { registerRoute, NavigationRoute } from 'workbox-routing';
+import {
+	CacheFirst,
+	StaleWhileRevalidate,
+	NetworkOnly,
+} from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 clientsClaim();
 cleanupOutdatedCaches();
 
 precacheAndRoute(self.__WB_MANIFEST);
+
+registerRoute(request => request.url.includes('cypress'), new NetworkOnly());
 
 registerRoute(
 	// Add in any other file extensions or routing criteria as needed.
