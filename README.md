@@ -79,7 +79,7 @@ En los test tambien se puede ver la cobertura de código en la parte superior de
 
 ![Screenshot 2023-09-16 at 17 21 42](https://github.com/davidmunozvi/BBVA-Technical-Test/assets/43704932/2af53c17-48b1-4eec-a9d9-4209b85bdca9)
 
-### Production
+### Producción
 Sitio web: https://davidmunozvi.github.io/BBVA-Technical-Test/
 
 Esta aplicación se puede usar en modo offline gracias al cacheo comentado anteriormente y se pude descargar.
