@@ -24,8 +24,8 @@ const StyledTemperature = styled(Text)`
 
 function CurrentDayWeather({ weather }) {
 	return (
-		<StyledContainer>
-			<StyledWeatherIcon weather={weather.weather} />
+		<StyledContainer data-test='current-weather'>
+			<StyledWeatherIcon weather={translations.detail[weather.weather]} />
 			<StyledTemperature element='h2' weight='bold'>
 				{weather.temperature}°
 			</StyledTemperature>
