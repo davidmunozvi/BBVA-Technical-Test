@@ -86,6 +86,8 @@ Esta aplicación se puede usar en modo offline gracias al cacheo comentado anter
 
 ![Screenshot 2023-09-16 at 15 12 22](https://github.com/davidmunozvi/BBVA-Technical-Test/assets/43704932/1efc97be-6ec2-413a-9b8e-ed30982e0194)
 
+changelog por si es de interes https://github.com/davidmunozvi/BBVA-Technical-Test/releases
+
 Espero que te guste!
 
 ### Gracias por llegar hasta aquí 😄
