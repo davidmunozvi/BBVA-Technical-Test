@@ -65,7 +65,7 @@ npm i
 ### 🚀 Uso
 
 ```
-# run the server on localhost:3000
+# run the server on localhost:8080
 npm run dev
 
 # run unit tests
